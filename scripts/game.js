@@ -22,15 +22,15 @@ function snake(){
 
 	function init()
 		{   
-			score = 0;
-			d = "right";
+			score = 0;	//initial score
+			d = "right"; //initial direction
 			create();	//line 35
 			cookfood();	//line 45
 			if(typeof game_loop != "undefined") clearInterval(game_loop);
 			game_loop = setInterval(draw, 70);	//calling draw function every 0.07s 
 		}
 
-	init();
+	init();	//calling init function
 
 	function create()
 		{
@@ -50,7 +50,7 @@ function snake(){
 
 	function draw()
 		{
-			ctx.fillStyle = "#4d4f53";
+			ctx.fillStyle = "#4d4f53";		//styling the canvas
 			ctx.fillRect(0, 0, 800, 400);
 			ctx.strokeStyle = "black";
 			ctx.strokeRect(0, 0, 800, 400);
@@ -58,7 +58,9 @@ function snake(){
 			var nx = snakearr[0].x;	//x-head of snake
 			var ny = snakearr[0].y;	//y-head of snake
 
-		    if(move == "right") nx++;
+			//giving direction rules
+
+		    if(move == "right") nx++;	
 			else if(move == "left") nx--;
 			else if(move == "up") ny--;
 			else if(move == "down") ny++;
@@ -74,7 +76,7 @@ function snake(){
 				init();
 			}
 
-			if( nx == food.xx && ny == food.yy )
+			if( nx == food.xx && ny == food.yy )	//condition to see if snake head reached food
 			{
 				var tail = {x:nx,y:ny};
 				cookfood();
@@ -82,21 +84,21 @@ function snake(){
 			}
 			else
 			{
-				var tail = snakearr.pop();
+				var tail = snakearr.pop();	//removing last element
 				tail.x = nx;
 				tail.y = ny;
 			}
 
-			snakearr.unshift(tail);
+			snakearr.unshift(tail);	//adding last element in case of else and adding new element for true if
 			paintFood(food.xx,food.yy);
 
-			for(var i = 0; i < snakearr.length; i++)
+			for(var i = 0; i < snakearr.length; i++)	//painting the snake body
 			{
 				var c = snakearr[i];                                                     
-			    paint(c.x,c.y);
+			    paint(c.x,c.y);	
 			}
 
-			var text = "Score: " + score;
+			var text = "Score: " + score;	//printing score
 			ctx.font = '12px';
 			ctx.fillText(text,720,20);
 
@@ -123,14 +125,14 @@ function snake(){
 		{	
 			for(var i = 0; i < arr.length; i++)
 			{
-				if(arr[i].x == zx && arr[i].y == zy)
+				if(arr[i].x == zx && arr[i].y == zy)	//condition of collision(if snake head position same as any other body element position return true)
 					 return true;
 			}
 				return false;
 		}
 			
 			
-	document.onkeydown=function(e)
+	document.onkeydown=function(e)	//function for keyboard input
 		{
 			var key = e.which;
 
